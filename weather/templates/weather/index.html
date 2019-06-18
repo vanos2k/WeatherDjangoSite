@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a href="">Vanos inc</a></h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="#">Главная</a>
+    <a class="p-2 text-dark" href="#">Информация</a>
+  </nav>
+  <a class="btn btn-outline-primary" href="#">Документация</a>
+</div>
+<div class="container">
+{% if title %}
+<p>{{title}}</p>
+{% endif %}
+    <h1>Погода в вашем городе</h1>
+    <div class="row">
+        <div class="col-5 offset-1">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for="city">Город</label>
+                {{ form.name }}
+                <input type="submit" name="send" value="Узнать" class="btn btn-danger">
+            </form>
+        </div>
+        <div class="col-4 offset-2">
+            <h1>Информация</h1>
+
+            {% for info in all_info %}
+            <div class="alert alert-light">
+            <div class="row"><div class="col-9">
+                <b>Город: </b>{{ info.city }} <br>
+                <b>Температура: </b> {{ info.temp }}<sup>0</sup>
+            </div>
+                <div class="col-2 offset-1">
+                    <img src="http://openweathermap.org/img/w/{{info.icon}}.png" alt="photo of weather" class="img-thumbnail">
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
